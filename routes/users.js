@@ -5,6 +5,8 @@ const slugify = require('slugify')
 const { body, validationResult } = require('express-validator')
 const { checkIfExist } = require('../middlewares/users')
 
+const cities = ['Paris', 'Los Angeles', 'Tokyo']
+
 app.get('/', (req, res) => {
     res.json(users)
 })
@@ -16,7 +18,7 @@ app.get('/:slug', checkIfExist, (req, res) => {
 app.post('/',
     body('name').isLength({min: 4}).withMessage("Name length isn't right"),
     body('password').isLength({min: 8}).withMessage("Password length isn't right"),
-    body('city').isIn(['Paris', 'Los Angeles', 'Tokyo']).withMessage("City isn't in the list"),
+    body('city').isIn(cities).withMessage("City isn't in the list"),
     body('email').isEmail().withMessage("this isn't a email"),
     (req, res) => {
         const { errors } = validationResult(req)
