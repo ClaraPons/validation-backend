@@ -19,6 +19,8 @@ app.get('/:slug', (req, res) => {
 app.post('/',
     body('name').isLength({min: 4}).withMessage("Name length isn't right"),
     body('password').isLength({min: 8}).withMessage("Password length isn't right"),
+    body('city').isIn(['Paris', 'Los Angeles', 'Tokyo']).withMessage("City isn't in the list"),
+    body('email').isEmail().withMessage("this isn't a email"),
     (req, res) => {
         const { errors } = validationResult(req)
         // console.log(req.body);
