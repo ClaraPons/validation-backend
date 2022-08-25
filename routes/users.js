@@ -3,17 +3,14 @@ const app = express('')
 const users = require('../users')
 const slugify = require('slugify')
 const { body, validationResult } = require('express-validator')
+const { checkIfExist } = require('../middlewares/users')
 
 app.get('/', (req, res) => {
     res.json(users)
 })
 
-app.get('/:slug', (req, res) => {    
-    const findUser = users.find((user) =>{
-        return user.slug === req.params.slug
-    })
-
-    res.json(findUser)
+app.get('/:slug', checkIfExist, (req, res) => {    
+    res.json(req.findUser)
 })
 
 app.post('/',
