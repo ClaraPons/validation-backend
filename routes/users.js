@@ -24,7 +24,7 @@ app.post('/',
 
         const user = {
             ...req.body,
-            slug: slugify(`${req.body.name}`, {lower: true}) 
+            slug: slugify(req.body.name, {lower: true}) 
         }
 
         if(errors.length > 0) {
